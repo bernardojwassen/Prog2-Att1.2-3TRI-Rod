@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Tarefas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main>
+    <h1>Sistema de Tarefas</h1>
+    <form id="form-tarefa">
+      <input type="text" id="titulo" placeholder="Nova tarefa" maxlength="100" required>
+      <button type="submit">Adicionar</button>
+    </form>
+    <p id="erro" role="alert"></p>
+    <table>
+      <thead><tr><th>Tarefa</th><th>Status</th><th>Ações</th></tr></thead>
+      <tbody id="lista"></tbody>
+    </table>
+  </main>
+
+  <script>
+    const api = "/api/tarefas";
+    const lista = document.getElementById("lista");
+    const erro = document.getElementById("erro");
+
+    async function enviar(url, metodo, corpo) {
+      const r = await fetch(url, {
+        method: metodo,
+        headers: { "Content-Type": "application/json" },
+        body: corpo ? JSON.stringify(corpo) : undefined,
+      });
+      if (!r.ok) throw new Error((await r.json()).erro || "Erro " + r.status);
+      return r;
+    }
+
+    function botao(texto, acao) {
+      const b = document.createElement("button");
+      b.textContent = texto;
+      b.onclick = () => acao().then(carregar).catch(e => erro.textContent = e.message);
+      return b;
+    }
+
+    async function carregar() {
+      erro.textContent = "";
+      const tarefas = await (await fetch(api)).json();       // GET
+      lista.innerHTML = "";
+      for (const t of tarefas) {
+        const tr = document.createElement("tr");
+        tr.append(document.createElement("td"), document.createElement("td"), document.createElement("td"));
+        tr.children[0].textContent = t.titulo;
+        tr.children[1].textContent = t.concluida ? "Concluída" : "Pendente";
+        tr.children[2].append(
+          botao(t.concluida ? "Reabrir" : "Concluir", () => enviar(`${api}/${t.id}`, "PUT", { concluida: !t.concluida })),
+          botao("Editar", async () => {
+            const novo = prompt("Novo título:", t.titulo);
+            if (novo !== null) await enviar(`${api}/${t.id}`, "PUT", { titulo: novo });
+          }),
+          botao("Excluir", () => enviar(`${api}/${t.id}`, "DELETE"))
+        );
+        lista.append(tr);
+      }
+    }
+
+    document.getElementById("form-tarefa").onsubmit = async e => {
+      e.preventDefault();
+      const campo = document.getElementById("titulo");
+      try { await enviar(api, "POST", { titulo: campo.value }); campo.value = ""; await carregar(); }
+      catch (err) { erro.textContent = err.message; }
+    };
+    carregar();
+  </script>
+</body>
+</html>

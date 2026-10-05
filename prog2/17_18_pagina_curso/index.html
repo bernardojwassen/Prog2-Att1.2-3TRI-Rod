@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Técnico em Informática</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1 id="titulo-principal">Curso Técnico em Informática</h1>
+    <nav class="menu">
+      <a href="#sobre">Sobre</a>
+      <a href="#disciplinas">Disciplinas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sobre" class="secao">
+      <h2>Sobre o curso</h2>
+      <article class="sobre-flex">
+        <img src="curso.svg" alt="Ilustração de código de programação">
+        <div>
+          <p>O curso forma profissionais capazes de desenvolver sistemas, manter redes e dar suporte a computadores.</p>
+          <p>As aulas combinam teoria e prática em laboratório, com projetos reais.</p>
+          <h3>O que você vai aprender</h3>
+          <ul>
+            <li>Lógica de programação e orientação a objetos</li>
+            <li>Banco de dados relacional e SQL</li>
+            <li>Desenvolvimento web (HTML, CSS e servidor)</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section id="disciplinas" class="secao">
+      <h2>Disciplinas</h2>
+      <table>
+        <thead><tr><th>Disciplina</th><th>Carga horária</th></tr></thead>
+        <tbody>
+          <tr><td>Programação I</td><td>80h</td></tr>
+          <tr><td>Programação II</td><td>80h</td></tr>
+          <tr><td>Banco de Dados</td><td>60h</td></tr>
+          <tr><td>Redes de Computadores</td><td>60h</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contato" class="secao">
+      <h2>Quero saber mais</h2>
+      <form action="#" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required>
+        <label for="msg">Mensagem</label>
+        <textarea id="msg" name="msg" rows="4"></textarea>
+        <button type="submit" class="botao">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="rodape"><p>&copy; 2026 Curso Técnico em Informática</p></footer>
+</body>
+</html>

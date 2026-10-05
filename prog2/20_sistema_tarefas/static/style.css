@@ -1,0 +1,12 @@
+body { font-family: "Segoe UI", Arial, sans-serif; background: #f3f4f6; color: #1f2937; margin: 0; }
+main { max-width: 720px; margin: 32px auto; padding: 0 16px; }
+h1 { color: #1e3a8a; }
+form { display: flex; gap: 8px; margin-bottom: 8px; }
+input { flex: 1; padding: 10px; border: 1px solid #9ca3af; border-radius: 6px; font: inherit; }
+button { background: #1d4ed8; color: #fff; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; margin-right: 4px; }
+button:hover { background: #1e3a8a; }
+#erro { color: #b91c1c; min-height: 1.4em; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { border: 1px solid #d1d5db; padding: 10px; text-align: left; }
+th { background: #1d4ed8; color: #fff; }
+@media (max-width: 600px) { form { flex-direction: column; } }
